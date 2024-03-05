@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 12:38:24 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/02/15 16:27:54 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:29:16 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	read_map(char *argv)
 	map = malloc(sizeof(char *));
 	while ((map[y] = get_next_line(fd)) != NULL)
 		y++;
+	if (y < 3)
+		finish("less than 3 lines");
 	validate_char(map);
-	valdate_map(map);
+	validate_map(map);
 	close(fd);
 }

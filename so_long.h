@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 16:08:49 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/02/15 16:29:54 by wecorzo-         ###   ########.fr       */
+/*   Created: 2024/03/05 14:50:24 by wecorzo-          #+#    #+#             */
+/*   Updated: 2024/03/05 15:11:34 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ void	read_map(char *argv);
 void	finish(char *str);
 void	validate_char(char **map);
 void	val_ext(char *str);
+void	validate_char(char **map);
 void	validate_map(char **map);
+
 #endif

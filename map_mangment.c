@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 12:38:24 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/16 16:59:47 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/17 12:02:00 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ void	free_map(char **map, t_map *map_pos)
 	free(map_pos);
 }
 
-char	**create_map(char **map, char *argv)
+char	**create_map(char *argv)
 {
+	char **map;
 	map = malloc(sizeof(char *) * (count_line(argv) + 1));
 	if (!map)
 		(finish("memory error"), exit(1));
@@ -59,17 +60,19 @@ char	**create_map(char **map, char *argv)
 t_map	read_map(char *argv)
 {
 	int		fd;
-	char	**map;
 	int		y;
 	t_map	*map_pos;
+	char	**map;
 
 	fd = open(argv, O_RDONLY);
 	if (fd <= 0)
 		(finish("memory error"), exit(1));
-	map = create_map(argv); 
+	map = create_map(argv);
+	if (!map)
+		finish("memory problem");
 	y = -1;
 	while (1)
-	;{
+	{
 		map[++y] = get_next_line(fd);
 		if (map[y] == NULL)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:02:04 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/16 13:55:55 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/17 12:03:17 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	validate_char(char **map, t_map *map_pos)
 
 	y = 0;
 	if (map[y] == NULL)
-		(free_map(map, map_pos, map_pos->y), finish("empty map"));
+		(free_map(map, map_pos), finish("empty map"));
 	while (map[y])
 	{
 		if (ft_strlen(map[y]) != (size_t)ft_strlen(map[0]))
@@ -73,10 +73,10 @@ void	validate_map(char **map, t_map *map_pos)
 		{
 			if ((x == 0 && map[y][x] != '1') ||
 				(y == 0 && map[y][x] != '1' && x < len - 1))
-				(free_map(map, map_pos, map_pos->y), finish("Missing Walls"));
+				(free_map(map, map_pos), finish("Missing Walls"));
 			if ((x == ft_strlen(map[0]) - 1 && map[y][len - 2] != '1') ||
 				(map[y + 1] == NULL && map[y][x] != '1' && x < (len - 1)))
-				(free_map(map, map_pos, map_pos->y), finish("Missing Walls"));
+				(free_map(map, map_pos), finish("Missing Walls"));
 			x++;
 		}
 		y++;
@@ -109,5 +109,5 @@ void	check_value(char **map, t_map *map_pos)
 		y++;
 	}
 	if (map_pos->exit != 1 || map_pos->ply != 1 || map_pos->coll < 1)
-		(free_map(map, map_pos, map_pos->y), finish("invalid map (value)"));
+		(free_map(map, map_pos), finish("invalid map (value)"));
 }

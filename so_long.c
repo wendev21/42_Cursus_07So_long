@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:38:58 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/17 11:50:15 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/17 12:04:53 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ int	key_hook(int keycode, t_vars *vars)
 	return (0);
 }
 
-void	check_img(char *img, t_map *map)
+void	check_img(char *img)
 {
 	int fd;
 
 	fd = open(img, O_RDONLY);
 	if (fd <= 0)
-		(free_map(map), finish("upload img failed"));
+		finish("upload img failed");
 }
+
 
 void	exec_prog(char *argv)
 {
@@ -47,15 +48,12 @@ void	exec_prog(char *argv)
 	int		h;
 	int		w;
 	char	*img_pth;
-	char	**map;
 
-	img_pth = "images/backgrund.xpm";
-
-	check_img(img_pth, &map_pos, create_map(argv));
+	img_pth = "images/background.xpm";
 	val_ext(argv);
-	map = create_map(argv);
+	check_img(img_pth);	
 	//updt create map
-	map_pos = read_map(argv, map);
+	map_pos = read_map(argv);
 	h = (map_pos.y * RESOLUTION_Y);
 	w = (map_pos.x * RESOLUTION_X);
 	vars.mlx = mlx_init();

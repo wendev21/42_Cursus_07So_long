@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:10:19 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/16 15:28:55 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/17 12:04:23 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	check_map(char **map, t_map *map_pos)
 	}
 	cp_map[i] = NULL;
 	flood_fill(cp_map, cp_pos->ply_y, cp_pos->ply_x, map_pos);
-	free_map(cp_map, cp_pos, map_pos->y);
+	free_map(cp_map, cp_pos);
 	if (map_pos->coll != 0 || map_pos->exit != 0)
 	{
-		free_map(map, map_pos, map_pos->y + 1);
+		free_map(map, map_pos);
 		finish("inaccesible map");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:38:58 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/02/15 16:13:33 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/17 11:50:15 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@ void	leaks(void)
 {
 	system("leaks -q so_long");
 }
-
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*win;
-}	t_vars;
 
 int	closed( t_vars *vars)
 {
@@ -36,20 +30,38 @@ int	key_hook(int keycode, t_vars *vars)
 	return (0);
 }
 
+void	check_img(char *img, t_map *map)
+{
+	int fd;
+
+	fd = open(img, O_RDONLY);
+	if (fd <= 0)
+		(free_map(map), finish("upload img failed"));
+}
+
 void	exec_prog(char *argv)
 {
-	read_map(argv);
-	return ;
+	t_map	map_pos;
 	t_vars	vars;
 	void	*img;
 	int		h;
 	int		w;
+	char	*img_pth;
+	char	**map;
 
-	h = 0;
-	w = 0;
+	img_pth = "images/backgrund.xpm";
+
+	check_img(img_pth, &map_pos, create_map(argv));
+	val_ext(argv);
+	map = create_map(argv);
+	//updt create map
+	map_pos = read_map(argv, map);
+	h = (map_pos.y * RESOLUTION_Y);
+	w = (map_pos.x * RESOLUTION_X);
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello, Wendy!");
-	img = mlx_xpm_file_to_image(vars.mlx, "images/background.xpm", &w, &h);
+	//return ;
+	vars.win = mlx_new_window(vars.mlx, 500, 500, "so_long!");
+	img = mlx_xpm_file_to_image(vars.mlx, img_pth, &w, &h);
 	mlx_put_image_to_window(vars.mlx, vars.win, img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);

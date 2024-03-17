@@ -6,29 +6,79 @@
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 12:38:24 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/05 16:29:16 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:59:47 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	read_map(char *argv)
+int	count_line(char *argv)
+{
+	char	*line;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = open(argv, O_RDONLY);
+	if (fd <= 0)
+		return (0);
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		i++;
+		line = get_next_line(fd);
+	}
+	free(line);
+	line = NULL;
+	close(fd);
+	return (i);
+}
+
+void	free_map(char **map, t_map *map_pos)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		map[i] = NULL;
+		i++;
+	}
+	free(map);
+	free(map_pos);
+}
+
+char	**create_map(char **map, char *argv)
+{
+	map = malloc(sizeof(char *) * (count_line(argv) + 1));
+	if (!map)
+		(finish("memory error"), exit(1));
+	return (map);
+}
+t_map	read_map(char *argv)
 {
 	int		fd;
 	char	**map;
-	int		count;
 	int		y;
+	t_map	*map_pos;
 
-	count = 0;
 	fd = open(argv, O_RDONLY);
-	y = 0;
-	val_ext(argv);
-	map = malloc(sizeof(char *));
-	while ((map[y] = get_next_line(fd)) != NULL)
-		y++;
-	if (y < 3)
-		finish("less than 3 lines");
-	validate_char(map);
-	validate_map(map);
-	close(fd);
+	if (fd <= 0)
+		(finish("memory error"), exit(1));
+	map = create_map(argv); 
+	y = -1;
+	while (1)
+	;{
+		map[++y] = get_next_line(fd);
+		if (map[y] == NULL)
+			break ;
+	}
+	if (y >= 0 && y < 3)
+		finish("empty or not valid map");
+	map_pos = malloc(sizeof(t_map));
+	init_struct(map_pos);
+	(validate_char(map, map_pos), validate_map(map, map_pos));
+	(check_value(map, map_pos), check_map(map, map_pos));
+	return (close(fd), *map_pos);
 }

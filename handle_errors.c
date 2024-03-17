@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:02:04 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/05 16:49:07 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/16 13:55:55 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	finish(char	*str)
 {
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(str, 2);
-	write(1, "\n", 2);
+	write(2, "\n", 2);
 	exit(0);
 }
 
@@ -29,28 +29,23 @@ void	val_ext(char *str)
 		finish("Invalid Extension\n");
 }
 
-void	validate_char(char **map)
+void	validate_char(char **map, t_map *map_pos)
 {
-	int		x;
-	int		y;
-	int		val;
-	char	c;
+	size_t	x;
+	size_t	y;
 
 	y = 0;
 	if (map[y] == NULL)
-		finish("empty map");
-	x = ft_strlen(map[0]);
+		(free_map(map, map_pos, map_pos->y), finish("empty map"));
 	while (map[y])
 	{
-		val = ft_strlen(map[y]);
-		if (val != x)
-			finish("val");
+		if (ft_strlen(map[y]) != (size_t)ft_strlen(map[0]))
+			finish("invalid map");
 		x = 0;
 		while (map[y][x])
 		{
-			c = map[y][x];
-			if (c == '1' || c == 'P' || c == '0'
-				|| c == 'E' || c == 'C' || c == '\n')
+			if (map[y][x] == '1' || map[y][x] == 'P' || map[y][x] == '0'
+				|| map[y][x] == 'E' || map[y][x] == 'C' || map[y][x] == '\n')
 				x++;
 			else
 				finish("Invalid Map");
@@ -59,24 +54,60 @@ void	validate_char(char **map)
 	}
 	if (x == y + 1)
 		finish("only  rectangle");
+	map_pos->y = y;
+	map_pos->x = ft_strlen(map[0]);
 }
 
-void	validate_map(char **map)
+void	validate_map(char **map, t_map *map_pos)
 {
 	size_t	y;
 	size_t	x;
+	size_t	len;
 
 	y = 0;
 	while (map[y])
 	{
 		x = 0;
-		while (x <= ft_strlen(map[0]))
+		len = ft_strlen(map[0]);
+		while (x <= len)
 		{
 			if ((x == 0 && map[y][x] != '1') ||
-				(y == 0 && map[y][x] != '1' && x < (ft_strlen(map[0]) - 1)))
-				(printf("%c", map[y][x]),finish("Missing Walls"));
+				(y == 0 && map[y][x] != '1' && x < len - 1))
+				(free_map(map, map_pos, map_pos->y), finish("Missing Walls"));
+			if ((x == ft_strlen(map[0]) - 1 && map[y][len - 2] != '1') ||
+				(map[y + 1] == NULL && map[y][x] != '1' && x < (len - 1)))
+				(free_map(map, map_pos, map_pos->y), finish("Missing Walls"));
 			x++;
 		}
 		y++;
 	}
+}
+
+void	check_value(char **map, t_map *map_pos)
+{
+	int		x;
+	int		y;
+
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'E')
+				map_pos->exit++;
+			else if (map[y][x] == 'C')
+				map_pos->coll += 1;
+			else if (map[y][x] == 'P')
+			{
+				map_pos->ply++;
+				map_pos->ply_y = y;
+				map_pos->ply_x = x;
+			}
+			x++;
+		}
+		y++;
+	}
+	if (map_pos->exit != 1 || map_pos->ply != 1 || map_pos->coll < 1)
+		(free_map(map, map_pos, map_pos->y), finish("invalid map (value)"));
 }

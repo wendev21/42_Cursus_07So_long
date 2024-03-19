@@ -6,7 +6,7 @@
 #    By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 11:46:47 by wecorzo-          #+#    #+#              #
-#    Updated: 2024/03/16 14:48:21 by wecorzo-         ###   ########.fr        #
+#    Updated: 2024/03/18 11:42:58 by wecorzo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,10 @@ SOURCES = so_long.c \
 		  initiation_struct.c \
 		  map_mangment.c \
 		  handle_errors.c \
-		  flood_fill.c 
+		  flood_fill.c \
+		  check_mnlx.c \
+		  ft_mnlx.c
+
 LIBFT = ./Libft/libft.a
 OBJS = $(SOURCES:.c=.o)
 

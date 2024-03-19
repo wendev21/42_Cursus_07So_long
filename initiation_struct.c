@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:07:11 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/16 13:00:45 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:07:10 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,13 @@ void	init_struct_cp(t_map *cp_map, t_map *map)
 	cp_map->ply = map->ply;
 	cp_map->ply_x = map->ply_x;
 	cp_map->ply_y = map->ply_y;
+}
+
+void	init_struct_img(t_img *img)
+{
+	img->wall = "images/wall.xpm";
+	img->bck = "images/bck.xpm";
+	img->ply = "images/ply.xpm";
+	img->coin = "images/coin.xpm";
+	img->exit = "images/exit.xpm";
 }

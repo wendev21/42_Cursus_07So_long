@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   map_mangment.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
+/*   By: wecorzo- <wecorzo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 12:38:24 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/17 12:02:00 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:34:59 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	finish(char	*str)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(str, 2);
+	write(2, "\n", 2);
+	exit(0);
+}
 
 int	count_line(char *argv)
 {
@@ -51,25 +59,23 @@ void	free_map(char **map, t_map *map_pos)
 
 char	**create_map(char *argv)
 {
-	char **map;
+	char	**map;
+
 	map = malloc(sizeof(char *) * (count_line(argv) + 1));
 	if (!map)
 		(finish("memory error"), exit(1));
 	return (map);
 }
-t_map	read_map(char *argv)
+
+t_map	*read_map(char *argv, char **map)
 {
 	int		fd;
 	int		y;
 	t_map	*map_pos;
-	char	**map;
 
 	fd = open(argv, O_RDONLY);
 	if (fd <= 0)
-		(finish("memory error"), exit(1));
-	map = create_map(argv);
-	if (!map)
-		finish("memory problem");
+		(finish("could not open the file"), exit(1));
 	y = -1;
 	while (1)
 	{
@@ -81,7 +87,6 @@ t_map	read_map(char *argv)
 		finish("empty or not valid map");
 	map_pos = malloc(sizeof(t_map));
 	init_struct(map_pos);
-	(validate_char(map, map_pos), validate_map(map, map_pos));
-	(check_value(map, map_pos), check_map(map, map_pos));
-	return (close(fd), *map_pos);
+	close(fd);
+	return (map_pos);
 }

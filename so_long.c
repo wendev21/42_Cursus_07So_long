@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:38:58 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/19 15:46:23 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:15:44 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,15 @@ void	leaks(void)
 void	exec_prog(char **map, t_map *map_pos)
 {
 	t_vars	vars;
-//	char	*img;
 	int		h;
 	int		w;
-//	char	*img_pth;
 
 	h = 0;
 	w = 0;
 	(void)map_pos;
-//	img_pth = "images/bck.xpm";
-//	check_imagen(map);
-	//updt create map
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, (RESOLUTION * (map_pos->y)), (RESOLUTION * (map_pos->x - 1)), "so_long!");
 	set_img(map, vars);
-	//img = mlx_xpm_file_to_image(vars.mlx, img_pth, &w, &h);
-	//mlx_put_image_to_window(vars.mlx, vars.win, img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
 }

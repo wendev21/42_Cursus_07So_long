@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+        */
+/*   By: wecorzo- <wecorzo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:02:04 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/17 12:03:17 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:34:01 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	finish(char	*str)
-{
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(str, 2);
-	write(2, "\n", 2);
-	exit(0);
-}
 
 void	val_ext(char *str)
 {
@@ -110,4 +102,29 @@ void	check_value(char **map, t_map *map_pos)
 	}
 	if (map_pos->exit != 1 || map_pos->ply != 1 || map_pos->coll < 1)
 		(free_map(map, map_pos), finish("invalid map (value)"));
+}
+
+void	check_map(char **map, t_map *map_pos)
+{
+	char	**cp_map;
+	t_map	*cp_pos;
+	int		i;
+
+	i = 0;
+	cp_pos = malloc(sizeof(t_map));
+	cp_map = malloc(sizeof(char *) * (map_pos->y + 1));
+	init_struct_cp(cp_pos, map_pos);
+	while (map[i] != NULL)
+	{
+		cp_map[i] = ft_substr(map[i], 0, ft_strlen(map[i]) - 1);
+		i++;
+	}
+	cp_map[i] = NULL;
+	flood_fill(cp_map, cp_pos->ply_y, cp_pos->ply_x, map_pos);
+	free_map(cp_map, cp_pos);
+	if (map_pos->coll != 0 || map_pos->exit != 0)
+	{
+		free_map(map, map_pos);
+		finish("inaccesible map");
+	}
 }

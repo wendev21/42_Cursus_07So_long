@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:38:58 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/23 17:03:19 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:21:10 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	leaks(void)
 {
 	system("leaks -q so_long");
-	atexit(leaks);
 }
 
 void	exec_prog(t_map *map_pos)
@@ -32,6 +31,7 @@ void	exec_prog(t_map *map_pos)
 	map_pos->vars.mlx = mlx_init();
 	map_pos->vars.win = mlx_new_window(map_pos->vars.mlx, x, y, "so_long!");
 	set_img(map_pos);
+	mlx_hook(map_pos->vars.win, 17, 0, (void *)exit, 0);	
 	mlx_hook(map_pos->vars.win, 2, 1L << 0, key_hook, map_pos);
 	mlx_loop(map_pos->vars.mlx);
 }
@@ -56,6 +56,8 @@ void	parseo(char *argv)
 
 int	main(int argc, char **argv)
 {
+
+	atexit(leaks);
 	if (argc == 2)
 		parseo(argv[1]);
 	else

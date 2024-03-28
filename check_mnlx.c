@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:32:59 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/23 16:58:47 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:43:37 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	check_img(char *img_pth, t_map *map_pos, int y, int x)
 	if (fd <= 0)
 		finish("upload img failed");
 	img = mlx_xpm_file_to_image(map_pos->vars.mlx, img_pth, &w, &h);
+	if (!img)
+		finish("mlx xpm");
 	mlx_put_image_to_window(map_pos->vars.mlx, map_pos->vars.win, img, x, y);
 	close(fd);
 }

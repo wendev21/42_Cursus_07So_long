@@ -6,7 +6,7 @@
 #    By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 11:46:47 by wecorzo-          #+#    #+#              #
-#    Updated: 2024/03/21 17:35:29 by wecorzo-         ###   ########.fr        #
+#    Updated: 2024/03/25 12:48:57 by wecorzo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT = ./Libft/libft.a
 OBJS = $(SOURCES:.c=.o)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
 
 start:
 	@make all

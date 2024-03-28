@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 12:38:24 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/23 16:59:32 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:19:38 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	count_line(char *argv)
 	while (line != NULL)
 	{
 		i++;
+		free(line);
 		line = get_next_line(fd);
 	}
-	free(line);
 	line = NULL;
 	close(fd);
 	return (i);
@@ -54,7 +54,6 @@ void	free_map(char **map, t_map *map_pos)
 		i++;
 	}
 	free(map);
-	return ;
 	free(map_pos);
 }
 
@@ -75,7 +74,7 @@ char	**read_map(char *argv, t_map *map_pos)
 
 	fd = open(argv, O_RDONLY);
 	if (fd <= 0)
-		(finish("could not open the file"), exit(1));
+		(finish("could not open the file"));
 	y = -1;
 	while (1)
 	{
@@ -85,6 +84,8 @@ char	**read_map(char *argv, t_map *map_pos)
 	}
 	if (y >= 0 && y < 3)
 		finish("empty or not valid map");
+	if (y > 42 || ft_strlen(map_pos->map[0]) > 78)
+		finish("map exceeds the limits");
 	close(fd);
 	return (map_pos->map);
 }

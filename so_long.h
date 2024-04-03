@@ -6,7 +6,7 @@
 /*   By: wecorzo- <wecorzo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:50:24 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/28 12:25:58 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:26:09 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,12 @@ void	finish(char *str);
 void	validate_map(t_map *map_pos);
 void	check_value(t_map *map_pos);
 void	check_map(t_map *map_pos);
+int		check_char_second(char c);
 void	flood_fill(char **map, int y, int x, t_map *pos_orig);
 int		check_flood_fill(char **cp_map);
 void	check_imagen(char	**map);
 void	set_img(t_map *map_pos);
+void	set_value_ext(t_map *map_pos, int x, int y);
+void	set_value_ply(t_map *map_pos, int x, int y);
 void	free_map(char **map, t_map *map_pos);
 #endif

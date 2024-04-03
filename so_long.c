@@ -6,16 +6,17 @@
 /*   By: wecorzo- <wecorzo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:38:58 by wecorzo-          #+#    #+#             */
-/*   Updated: 2024/03/28 16:21:10 by wecorzo-         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:30:00 by wecorzo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
+/*
 void	leaks(void)
 {
 	system("leaks -q so_long");
-}
+	atexit(leaks);
+}*/
 
 void	exec_prog(t_map *map_pos)
 {
@@ -31,7 +32,7 @@ void	exec_prog(t_map *map_pos)
 	map_pos->vars.mlx = mlx_init();
 	map_pos->vars.win = mlx_new_window(map_pos->vars.mlx, x, y, "so_long!");
 	set_img(map_pos);
-	mlx_hook(map_pos->vars.win, 17, 0, (void *)exit, 0);	
+	mlx_hook(map_pos->vars.win, 17, 0, (void *)exit, 0);
 	mlx_hook(map_pos->vars.win, 2, 1L << 0, key_hook, map_pos);
 	mlx_loop(map_pos->vars.mlx);
 }
@@ -47,6 +48,8 @@ void	parseo(char *argv)
 	init_struct(map_pos);
 	map_pos->map = create_map(argv);
 	map_pos->map = read_map(argv, map_pos);
+	if (map_pos->map[0] == NULL)
+		finish("invalid map");
 	validate_char(map_pos);
 	validate_map(map_pos);
 	check_value(map_pos);
@@ -56,8 +59,6 @@ void	parseo(char *argv)
 
 int	main(int argc, char **argv)
 {
-
-	atexit(leaks);
 	if (argc == 2)
 		parseo(argv[1]);
 	else

@@ -6,7 +6,7 @@
 #    By: wecorzo- <wecorzo-@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 11:46:47 by wecorzo-          #+#    #+#              #
-#    Updated: 2024/03/25 12:48:57 by wecorzo-         ###   ########.fr        #
+#    Updated: 2024/04/03 12:32:06 by wecorzo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SOURCES = so_long.c \
 		  initiation_struct.c \
 		  map_mangment.c \
 		  handle_errors.c \
+		  handle_utlis.c \
 		  flood_fill.c \
 		  check_mnlx.c \
 		  ft_mnlx.c
@@ -38,11 +39,9 @@ $(NAME): $(OBJS)
 
 clean:
 	@rm -f $(OBJS)
-	@make clean -C ./Libft
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f $(LIBFT)
 
 re: fclean all
 
